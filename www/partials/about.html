@@ -1,15 +1,33 @@
-<ion-view view-title="Home">
+<ion-view view-title="About">
     <ion-content class="padding">
         <div class="card">
-            <div class="item item-divider bar bar-calm">
-                Access your review
+            <div class="item item-divider bar bar-assertive">
+                Boîte-À-Gitans
             </div>
             <div class="item item-text-wrap">
-                <p>Access the report of your activity and the statistics compute thanks to all the data you've saved in the application.</p>
+                <p>Réalisé d'après une idée originale de neuvièmepage.com</p>
                 <br>
-                <p class="center"><a ui-sref="review"><button class="button button-energized">Review</button></a></p>
+                <p>Boîte-À-Gitans est garantie sans pub, ni achat ou restriction de quelque
+                    sorte que ce soit.
+                </p>
             </div>
         </div>
+        <div class="card">
+            <div class="item item-divider bar bar-assertive">
+                Code Source et License
+            </div>
+            <div class="item item-text-wrap">
+                <p>Boîte-À-Gitans a été réalisée grâce à Ionic Framework & Cordova.</p>
+                <br>
+                <p>Le code source est diffusé sur Github sous la License MIT.</p>
+                <div class="col">
+                    <button class="button button-block button-energized">
+                        https://github.com/Epsichaos/boite-a-gitans
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--
         <div class="list card">
             <div class="item item-text-wrap">
                 <div class="row row-center">
@@ -19,24 +37,6 @@
                 </div>
             </div>
         </div>
-        <!--
-
-        <div class="list card" ng-init="init()">
-            <div class="item item-text-wrap" ng-repeat="item in collectionList | filter:search">
-                <div class="row row-center">
-                    <div class="col">
-                        <h2>{{item.categoryName}}</h2>
-                        <p>{{item.taskName}}</p>
-                        <p>{{item.date}} - {{item.durationHours}}h{{item.durationMinutes}}m</p>
-                    </div>
-                    <div class="col">
-                        <button class="button button-block button-assertive" ng-click="deleteItem({{item.idTask}})">Delete</button>
-                        <button class="button button-block button-calm">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     -->
     </ion-content>
 </ion-view>

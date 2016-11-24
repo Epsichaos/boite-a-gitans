@@ -1,15 +1,20 @@
-app.controller("BoxCtrl", function($scope, $cordovaSQLite, $ionicPopup) {
+app.controller("BoxCtrl", function($scope, $rootScope, $cordovaSQLite, $cordovaNativeAudio) {
+    $rootScope.$on('loadBox', function() {
+        $scope.loadBox();
+    });
+
     $scope.init = function() {
-        $scope.play();
+        $scope.loadBox();
     }
-    $scope.play = function(id) {
-        console.log("clicked " + id);
+
+    $scope.loadBox = function() {
+        console.log('BoxCtrl loadBox');
         if(window.cordova) {
             // objects
             $scope.collectionList = [];
             collectionList = [];
             // load/create database
-            //dbApp = $cordovaSQLite.openDB({name:'dev.box.gitans.db', location:'default'});
+            dbApp = $cordovaSQLite.openDB({name:'dev.box.gitans.db', location:'default'});
             var query = "SELECT * FROM sounds ORDER BY id ASC";
             $cordovaSQLite.execute(dbApp,query).then(function(result) {
                 if(result.rows.length > 0) {
@@ -29,5 +34,22 @@ app.controller("BoxCtrl", function($scope, $cordovaSQLite, $ionicPopup) {
                 //alert('error' + error);
             });
         }
+    }
+
+    $scope.play = function(id) {
+        // logging
+        console.log("clicked " + id);
+        var soundPath = 'audio/' + id + '.mp3';
+
+        // stop previous played song
+        $cordovaNativeAudio.stop('click');
+        // launch new sound
+        $cordovaNativeAudio
+            .preloadSimple('click', soundPath)
+            .then(function (msg) {
+                $cordovaNativeAudio.play('click');
+            }, function (error) {
+              console.log(error);
+            });
     }
 })
