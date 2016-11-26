@@ -1,10 +1,11 @@
-app.controller("BoxCtrl", function($scope, $rootScope, $cordovaSQLite, $cordovaNativeAudio) {
-    $rootScope.$on('loadBox', function() {
-        $scope.loadBox();
-    });
+app.controller("BoxCtrl", function($scope, $ionicPlatform, $cordovaSQLite, $cordovaNativeAudio, DatabaseService, $q) {
+    $ionicPlatform.ready(function() { $scope.init() })
 
     $scope.init = function() {
-        $scope.loadBox();
+        DatabaseService.init().then(function(e) {
+            console.log(e);
+            $scope.loadBox();
+        });
     }
 
     $scope.loadBox = function() {
@@ -13,11 +14,11 @@ app.controller("BoxCtrl", function($scope, $rootScope, $cordovaSQLite, $cordovaN
             // objects
             $scope.collectionList = [];
             collectionList = [];
-            // load/create database
-            dbApp = $cordovaSQLite.openDB({name:'dev.box.gitans.db', location:'default'});
+            // Select query
             var query = "SELECT * FROM sounds ORDER BY id ASC";
-            $cordovaSQLite.execute(dbApp,query).then(function(result) {
+            $cordovaSQLite.execute(DatabaseService.getDatabase(),query).then(function(result) {
                 if(result.rows.length > 0) {
+                    console.log('LENGTH' + result.rows.length);
                     for(var i = 0; i < result.rows.length; i++) {
                         obj = {
                             'id': result.rows.item(i).id,
@@ -30,26 +31,41 @@ app.controller("BoxCtrl", function($scope, $rootScope, $cordovaSQLite, $cordovaN
                     collectionList = [];
                 }
                 $scope.collectionList = collectionList;
+                collectionList.forEach(function(e) {
+                    console.log(e);
+                    var soundPath = 'audio/' + e.id + '.m4a';
+
+                    $cordovaNativeAudio
+                        .preloadSimple(e.id, soundPath)
+                        .then(function (msg) {
+                            console.log('OK' + e.id);
+                        }, function (error) {
+                          console.log(error);
+                        });
+
+                })
             }, function(error) {
-                //alert('error' + error);
+                console.log(error.message);
             });
+            /*
+            $scope.collectionList.forEach(function(e) {
+                console.log("TEST" + e.id);
+                var soundPath = 'audio/' + id + '.mp3';
+                $cordovaNativeAudio
+                    .preloadSimple(e.id, soundPath)
+                    .then(function (msg) {
+                        console.log('OK' + id);
+                    }, function (error) {
+                      console.log(error);
+                    });
+            });
+            */
         }
     }
 
     $scope.play = function(id) {
-        // logging
-        console.log("clicked " + id);
-        var soundPath = 'audio/' + id + '.mp3';
-
-        // stop previous played song
-        $cordovaNativeAudio.stop('click');
-        // launch new sound
-        $cordovaNativeAudio
-            .preloadSimple('click', soundPath)
-            .then(function (msg) {
-                $cordovaNativeAudio.play('click');
-            }, function (error) {
-              console.log(error);
-            });
+        console.log('clicked:' + id);
+        $cordovaNativeAudio.play(id);
     }
+
 })
