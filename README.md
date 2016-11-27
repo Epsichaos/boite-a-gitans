@@ -2,7 +2,7 @@
 
 ## Description
 
-Basée sur une idée originale de http://boitalopez.neuviemepage.com/, application mobile adaptant le concept au mobile tout en restant sans publicité (contrairement aux autres applications disponibles).
+Basée sur une idée originale de http://boitalopez.neuviemepage.com/, application adaptant le concept au mobile tout en restant sans publicité (contrairement aux autres applications disponibles).
 
 ## Bugs
 
