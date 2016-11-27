@@ -1,13 +1,17 @@
 app.controller("BoxCtrl", function($scope, $ionicPlatform, $cordovaSQLite, $cordovaNativeAudio, DatabaseService, $q) {
+    // when platform is ready, call $scope.init
     $ionicPlatform.ready(function() { $scope.init() })
 
+    // init the database and when successful init the boxes
     $scope.init = function() {
+        // call database singleton & init it
         DatabaseService.init().then(function(e) {
             console.log(e);
             $scope.loadBox();
         });
     }
 
+    // Load box page
     $scope.loadBox = function() {
         console.log('BoxCtrl loadBox');
         if(window.cordova) {
@@ -47,25 +51,27 @@ app.controller("BoxCtrl", function($scope, $ionicPlatform, $cordovaSQLite, $cord
             }, function(error) {
                 console.log(error.message);
             });
-            /*
-            $scope.collectionList.forEach(function(e) {
-                console.log("TEST" + e.id);
-                var soundPath = 'audio/' + id + '.mp3';
-                $cordovaNativeAudio
-                    .preloadSimple(e.id, soundPath)
-                    .then(function (msg) {
-                        console.log('OK' + id);
-                    }, function (error) {
-                      console.log(error);
-                    });
-            });
-            */
         }
     }
 
+    // play method, buggy after ~20 plays ?
+    // TODO -> resolve this bug
     $scope.play = function(id) {
         console.log('clicked:' + id);
         $cordovaNativeAudio.play(id);
+        /*
+        var soundPath = 'audio/' + id + '.m4a';
+        $cordovaNativeAudio.stop('music');
+        $cordovaNativeAudio.unload('music');
+        $cordovaNativeAudio
+            .preloadSimple('music', soundPath)
+            .then(function (msg) {
+                console.log('OK' + id);
+                $cordovaNativeAudio.play('music');
+            }, function (error) {
+              console.log(error);
+            });
+        */
     }
 
 })
