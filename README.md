@@ -1,1 +1,14 @@
 # boite-a-gitans
+
+## Description
+
+Basée sur une idée originale de http://boitalopez.neuviemepage.com/, application mobile adaptant le concept au mobile tout en restant sans publicité (contrairement aux autres applications disponibles). 
+
+## Bugs
+
+- La lecture des sons  se superpose aux autres si on clique sur plusieurs boutons ou plusieurs fois sur le même.
+- Après avoir cliqué sur ~20 boutons, aucun son ne se joue sur les boutons suivants.
+
+## License 
+
+The MIT License
