@@ -1,4 +1,4 @@
-# boite-a-gitans !["travis_build_status"](https://travis-ci.org/Epsichaos/boite-a-gitans.svg?branch=master)
+# boite-a-lopez !["travis_build_status"](https://travis-ci.org/Epsichaos/boite-a-gitans.svg?branch=master)
 
 ## Description
 
